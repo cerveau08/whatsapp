@@ -31,8 +31,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   final String currentUserId;
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   bool isLoading = false;
@@ -90,7 +89,8 @@ class HomeScreenState extends State<HomeScreen> {
       handleSignOut();
     } else {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ChatSettings()));
+        context, MaterialPageRoute(builder: (context) => ChatSettings())
+      );
     }
   }
 
@@ -99,7 +99,7 @@ class HomeScreenState extends State<HomeScreen> {
       Platform.isAndroid
           ? 'com.dfa.flutterchatdemo'
           : 'com.duytq.flutterchatdemo',
-      'Flutter chat demo',
+      'Whatsapp',
       'your channel description',
       playSound: true,
       enableVibration: true,
@@ -111,16 +111,10 @@ class HomeScreenState extends State<HomeScreen> {
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
     print(message);
-//    print(message['body'].toString());
-//    print(json.encode(message));
-
     await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
-        message['body'].toString(), platformChannelSpecifics,
-        payload: json.encode(message));
-
-//    await flutterLocalNotificationsPlugin.show(
-//        0, 'plain title', 'plain body', platformChannelSpecifics,
-//        payload: 'item x');
+      message['body'].toString(), platformChannelSpecifics,
+      payload: json.encode(message)
+    );
   }
 
   Future<bool> onBackPress() {
@@ -130,86 +124,90 @@ class HomeScreenState extends State<HomeScreen> {
 
   Future<Null> openDialog() async {
     switch (await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            contentPadding:
-                EdgeInsets.only(left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
-            children: <Widget>[
-              Container(
-                color: themeColor,
-                margin: EdgeInsets.all(0.0),
-                padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
-                height: 100.0,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        Icons.exit_to_app,
-                        size: 30.0,
-                        color: Colors.white,
-                      ),
-                      margin: EdgeInsets.only(bottom: 10.0),
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          contentPadding:
+            EdgeInsets.only(left: 0.0, right: 0.0, top: 0.0, bottom: 0.0),
+          children: <Widget>[
+            Container(
+              color: themeColor,
+              margin: EdgeInsets.all(0.0),
+              padding: EdgeInsets.only(bottom: 10.0, top: 10.0),
+              height: 100.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Icon(
+                      Icons.exit_to_app,
+                      size: 30.0,
+                      color: Colors.white,
                     ),
-                    Text(
-                      'Exit app',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold),
+                    margin: EdgeInsets.only(bottom: 10.0),
+                  ),
+                  Text(
+                    'Exit app',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold
                     ),
-                    Text(
-                      'Are you sure to exit app?',
-                      style: TextStyle(color: Colors.white70, fontSize: 14.0),
-                    ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    'Are you sure to exit app?',
+                    style: TextStyle(color: Colors.white70, fontSize: 14.0),
+                  ),
+                ],
               ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 0);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        Icons.cancel,
-                        color: primaryColor,
-                      ),
-                      margin: EdgeInsets.only(right: 10.0),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, 0);
+              },
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    child: Icon(
+                      Icons.cancel,
+                      color: primaryColor,
                     ),
-                    Text(
-                      'CANCEL',
-                      style: TextStyle(
-                          color: primaryColor, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 1);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        Icons.check_circle,
-                        color: primaryColor,
-                      ),
-                      margin: EdgeInsets.only(right: 10.0),
+                    margin: EdgeInsets.only(right: 10.0),
+                  ),
+                  Text(
+                    'CANCEL',
+                    style: TextStyle(
+                      color: primaryColor, fontWeight: FontWeight.bold
                     ),
-                    Text(
-                      'YES',
-                      style: TextStyle(
-                          color: primaryColor, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-            ],
-          );
-        })) {
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context, 1);
+              },
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    child: Icon(
+                      Icons.check_circle,
+                      color: primaryColor,
+                    ),
+                  margin: EdgeInsets.only(right: 10.0),
+                  ),
+                  Text(
+                    'YES',
+                    style: TextStyle(
+                      color: primaryColor, fontWeight: FontWeight.bold
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      })
+    ) {
       case 0:
         break;
       case 1:
@@ -232,14 +230,16 @@ class HomeScreenState extends State<HomeScreen> {
     });
 
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MyApp()),
-        (Route<dynamic> route) => false);
+      MaterialPageRoute(builder: (context) => MyApp()),
+      (Route<dynamic> route) => false
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text(
           'Whatsapp',
           style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
@@ -251,22 +251,23 @@ class HomeScreenState extends State<HomeScreen> {
             itemBuilder: (BuildContext context) {
               return choices.map((Choice choice) {
                 return PopupMenuItem<Choice>(
-                    value: choice,
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          choice.icon,
-                          color: primaryColor,
-                        ),
-                        Container(
-                          width: 10.0,
-                        ),
-                        Text(
-                          choice.title,
-                          style: TextStyle(color: primaryColor),
-                        ),
-                      ],
-                    ));
+                  value: choice,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        choice.icon,
+                        color: primaryColor,
+                      ),
+                      Container(
+                        width: 10.0,
+                      ),
+                      Text(
+                        choice.title,
+                        style: TextStyle(color: primaryColor),
+                      ),
+                    ],
+                  )
+                );
               }).toList();
             },
           ),
@@ -335,12 +336,12 @@ class HomeScreenState extends State<HomeScreen> {
                         width: 50.0,
                         height: 50.0,
                         fit: BoxFit.cover,
-                      )
+                    )
                     : Icon(
                         Icons.account_circle,
                         size: 50.0,
                         color: greyColor,
-                      ),
+                    ),
                 borderRadius: BorderRadius.all(Radius.circular(25.0)),
                 clipBehavior: Clip.hardEdge,
               ),
@@ -350,7 +351,7 @@ class HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          'Nickname: ${document.data()['nickname']}',
+                          '${document.data()['nickname']}',
                           style: TextStyle(color: primaryColor),
                         ),
                         alignment: Alignment.centerLeft,
@@ -365,20 +366,23 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Chat(
-                          peerId: document.id,
-                          peerAvatar: document.data()['photoUrl'],
-                          peerUsername: document.data()['nickname']
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => Chat(
+                  peerId: document.id,
+                  peerAvatar: document.data()['photoUrl'],
+                  peerUsername: document.data()['nickname']
+                )
+              )
+            );
           },
           color: greyColor2,
           padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         ),
-        margin: EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
+        
+        margin: EdgeInsets.only(bottom: 10.0, left: 0.1, right: 0.1),
       );
     }
   }

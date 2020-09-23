@@ -47,8 +47,9 @@ class LoginScreenState extends State<LoginScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                HomeScreen(currentUserId: prefs.getString('id'))),
+          builder: (context) =>
+            HomeScreen(currentUserId: prefs.getString('id'))
+        ),
       );
     }
 
@@ -71,9 +72,7 @@ class LoginScreenState extends State<LoginScreen> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
-    User firebaseUser =
-        (await firebaseAuth.signInWithCredential(credential)).user;
+    User firebaseUser = (await firebaseAuth.signInWithCredential(credential)).user;
 
     if (firebaseUser != null) {
       // Check is already sign up
@@ -94,7 +93,6 @@ class LoginScreenState extends State<LoginScreen> {
           'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
           'chattingWith': null
         });
-
         // Write data to local
         currentUser = firebaseUser;
         await prefs.setString('id', currentUser.uid);
@@ -111,12 +109,13 @@ class LoginScreenState extends State<LoginScreen> {
       this.setState(() {
         isLoading = false;
       });
-
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  HomeScreen(currentUserId: firebaseUser.uid)));
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+            HomeScreen(currentUserId: firebaseUser.uid)
+        )
+      );
     } else {
       Fluttertoast.showToast(msg: "Sign in fail");
       this.setState(() {
@@ -128,34 +127,35 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
         ),
-        body: Stack(
-          children: <Widget>[
-            Center(
-              child: FlatButton(
-                  onPressed: handleSignIn,
-                  child: Text(
-                    'SIGN IN WITH GOOGLE',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  color: themeColor,
-                  highlightColor: Color(0xffff7f7f),
-                  splashColor: Colors.transparent,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0)),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: FlatButton(
+              onPressed: handleSignIn,
+              child: Text(
+                'SIGN IN WITH GOOGLE',
+                style: TextStyle(fontSize: 16.0),
+              ),
+              color: themeColor,
+              highlightColor: Color(0xffff7f7f),
+              splashColor: Colors.transparent,
+              textColor: Colors.white,
+              padding: EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0)
             ),
-
-            // Loading
-            Positioned(
-              child: isLoading ? const Loading() : Container(),
-            ),
-          ],
-        ));
+          ),
+          // Loading
+          Positioned(
+            child: isLoading ? const Loading() : Container(),
+          ),
+        ],
+      )
+    );
   }
 }
