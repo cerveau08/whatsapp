@@ -1,16 +1,45 @@
-# whatsapp
+C'est Une application de Clone Whatsapp avec flutter et Firebase dans la partie backend.
 
-A new Flutter project.
+Dans cette application, on a les fonctionnalités suivantes : 
 
-## Getting Started
+  1) S'authentifier avec son Compte google et vos données comme le prénom, le nom, l'image profil de votre compte google ... seront récupéré pour créer votre profil
+  
+  2) Modifier son profil avec les données par défaut inséré lors de l'authentification
+  
+  3) Voir la liste des utilisateurs inscrits
+  
+  4) Envoyer des messages a chaque utilisateur (texte, image et vidéo)
+  
+Dans firebase on a deux collections : User et Messages
 
-This project is a starting point for a Flutter application.
+Et chaque discution entre deux utilisateur est inserer dans un seul noeud pour ne pas permettre a un autre utilisateur de voir le message d'autrui.
 
-A few resources to get you started if this is your first Flutter project:
+Les plugins utiliges sont: 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  firebase_core
+  
+  firebase_auth
+  
+  google_sign_in
+  
+  cloud_firestore
+  
+  fluttertoast
+  
+  image_picker
+  
+  shared_preferences
+  
+  firebase_storage
+  
+  cached_network_image
+  
+  intl
+  
+  firebase_messaging
+  
+  flutter_local_notification
+  
+  photo_view
+  
+  video_player
